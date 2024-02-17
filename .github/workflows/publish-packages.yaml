@@ -1,0 +1,51 @@
+name: Workflow Main - On Push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  setup:
+    name: preparing
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    strategy:
+      matrix:
+        node-version: [18.x]
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN_CI }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN_CI }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: "${{ matrix.node-version }}"
+          cache: "yarn"
+
+      - name: install packages
+        run: |
+          yarn install --immutable
+
+      - name: testing
+        run: |
+          yarn run test
+      - name: Version
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor}}@users.noreply.github.com" 
+          git remote set-url origin https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          yarn run lerna:version --yes
+
+      - name: Publish
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor}}@users.noreply.github.com" 
+          git remote set-url origin https://${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          yarn run lerna:publish --yes

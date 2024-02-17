@@ -1,0 +1,39 @@
+{
+  "name": "@whitebeardit/eslint-config",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "scripts": {
+    "test": "yarn workspaces foreach --all run test",
+    "lerna:version": "lerna version",
+    "lerna:publish": "HUSKY_SKIP_HOOKS=1 lerna publish from-package",
+    "prepare": "husky install"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@whitebeardit"
+  },
+  "author": "Whitebeard",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:whitebeardit/qd-eslint-config.git"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.1",
+    "@commitlint/config-lerna-scopes": "^18.4.0",
+    "commitizen": "^4.3.0",
+    "conventional-changelog-conventionalcommits": "^6.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "lerna": "^7.4.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@4.0.2"
+}
