@@ -1,6 +1,6 @@
 {
   "name": "@whitebeardit/eslint-config-frontend",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Frontend eslint config at whitebeardit ;)",
   "main": "index.js",
   "scripts": {

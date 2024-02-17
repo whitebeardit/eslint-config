@@ -1,6 +1,6 @@
 {
   "name": "@whitebeardit/eslint-config-mobile",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "Mobile eslint config at whitebeardit ;)",
   "main": "index.js",
   "scripts": {
